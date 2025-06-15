@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Testimonial Cards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .card {
+      position: relative;
+      width: 270px;
+      height: 370px;
+      background-color: #fdeee8;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .thumbnail {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .thumbnail img,
+    .thumbnail video {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      top: 0;
+      left: 0;
+    }
+
+    .thumbnail video {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    .card:hover video {
+      opacity: 1;
+    }
+
+    .overlay-details {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 15px;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.4s ease;
+      color: #fff;
+    }
+
+    .card:hover .overlay-details {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .overlay-details h3 {
+      margin-bottom: 12px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      background: rgba(255, 255, 255, 0.25);
+      font-size: 12px;
+      font-weight: 500;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+    }
+
+    .name-tag {
+      position: absolute;
+      background: white;
+      color: #111;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      font-weight: bold;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+      z-index: 10;
+      transform: translate(-50%, -50%);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cards -->
+  <div class="card" data-name="Andrew Rotz">
+    <div class="thumbnail">
+      <img src="https://i.imgur.com/4Z4z9uL.jpg" alt="Andrew Rotz">
+      <video muted preload="auto">
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="overlay-details">
+      <h3>Andrew Rotz</h3>
+      <div class="tags">
+        <div class="tag">💬 Conversational</div>
+        <div class="tag">💼 Dedicated</div>
+        <div class="tag">🌈 Open-minded</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-name="Alli Hershey">
+    <div class="thumbnail">
+      <img src="https://i.imgur.com/jNNT4LE.jpg" alt="Alli Hershey">
+      <video muted preload="auto">
+        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="overlay-details">
+      <h3>Alli Hershey</h3>
+      <div class="tags">
+        <div class="tag">🌟 Enthusiastic</div>
+        <div class="tag">🧠 Thoughtful</div>
+        <div class="tag">💪 Motivated</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-name="Angela Moore">
+    <div class="thumbnail">
+      <img src="https://i.imgur.com/4zCTUXH.jpg" alt="Angela Moore">
+      <video muted preload="auto">
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="overlay-details">
+      <h3>Angela Moore</h3>
+      <div class="tags">
+        <div class="tag">🎯 Focused</div>
+        <div class="tag">📚 Knowledgeable</div>
+        <div class="tag">🌟 Insightful</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared floating name tag -->
+  <div class="name-tag" id="floatingName"></div>
+
+  <script>
+    const cards = document.querySelectorAll('.card');
+    const floatingName = document.getElementById('floatingName');
+
+    cards.forEach(card => {
+      const video = card.querySelector('video');
+      const name = card.getAttribute('data-name');
+
+      card.addEventListener('mouseenter', () => {
+        video.currentTime = 0;
+        video.play();
+        floatingName.innerText = name;
+        floatingName.style.opacity = 1;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        video.pause();
+        video.currentTime = 0;
+        floatingName.style.opacity = 0;
+      });
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        floatingName.style.left = `${rect.left + x}px`;
+        floatingName.style.top = `${rect.top + y}px`;
+      });
+    });
+  </script>
+
+</body>
+</html>
