@@ -104,26 +104,142 @@
     }
 
     .name-tag {
-      position: absolute;
+      position: fixed;
       background: white;
-      color: #111;
-      padding: 6px 14px;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      color: black;
+      padding: 8px 16px;
+      border-radius: 25px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
       font-weight: bold;
       pointer-events: none;
-      transition: opacity 0.3s ease;
       opacity: 0;
-      z-index: 10;
-      transform: translate(-50%, -50%);
-      font-size: 13px;
+      z-index: 1000;
+      font-size: 14px;
+      transform: translate(0, -50%) scale(0.8);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+      will-change: transform;
     }
+
+    .name-tag.visible {
+      opacity: 1;
+      transform: translate(0, -50%) scale(1);
+    }
+
+    .name-tag.moving {
+      transition: none;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal.show {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      transform: scale(0.8);
+      animation: modalAppear 0.3s ease forwards;
+    }
+
+    .close {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #aaa;
+      transition: color 0.3s ease;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    .modal-video {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .modal-profile {
+      text-align: center;
+    }
+
+    .modal-profile h2 {
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 24px;
+    }
+
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .modal-tag {
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .modal-description {
+      color: #666;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes modalAppear {
+      from { 
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to { 
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+
   </style>
 </head>
 <body>
 
   <!-- Cards -->
-  <div class="card" data-name="Andrew Rotz">
+  <div class="card" data-name="More About Andrew">
     <div class="thumbnail">
       <img src="https://i.imgur.com/4Z4z9uL.jpg" alt="Andrew Rotz">
       <video muted preload="auto">
@@ -140,7 +256,7 @@
     </div>
   </div>
 
-  <div class="card" data-name="Alli Hershey">
+  <div class="card" data-name="More About Alli">
     <div class="thumbnail">
       <img src="https://i.imgur.com/jNNT4LE.jpg" alt="Alli Hershey">
       <video muted preload="auto">
@@ -157,7 +273,7 @@
     </div>
   </div>
 
-  <div class="card" data-name="Angela Moore">
+  <div class="card" data-name="More About Angela">
     <div class="thumbnail">
       <img src="https://i.imgur.com/4zCTUXH.jpg" alt="Angela Moore">
       <video muted preload="auto">
@@ -180,32 +296,91 @@
   <script>
     const cards = document.querySelectorAll('.card');
     const floatingName = document.getElementById('floatingName');
+    let currentCard = null;
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let animationId = null;
+
+    // Smooth animation function
+    function animateNameTag() {
+      const lerp = (start, end, factor) => start + (end - start) * factor;
+      const smoothFactor = 0.1; // Lower = smoother but slower following
+
+      currentX = lerp(currentX, targetX, smoothFactor);
+      currentY = lerp(currentY, targetY, smoothFactor);
+
+      floatingName.style.left = `${currentX}px`;
+      floatingName.style.top = `${currentY}px`;
+
+      if (Math.abs(targetX - currentX) > 0.5 || Math.abs(targetY - currentY) > 0.5) {
+        animationId = requestAnimationFrame(animateNameTag);
+      }
+    }
 
     cards.forEach(card => {
       const video = card.querySelector('video');
       const name = card.getAttribute('data-name');
 
       card.addEventListener('mouseenter', () => {
+        currentCard = card;
         video.currentTime = 0;
         video.play();
         floatingName.innerText = name;
-        floatingName.style.opacity = 1;
+        floatingName.classList.add('visible');
+        floatingName.classList.add('moving');
+        
+        // Start animation loop
+        if (animationId) cancelAnimationFrame(animationId);
+        animateNameTag();
       });
 
       card.addEventListener('mouseleave', () => {
+        currentCard = null;
         video.pause();
         video.currentTime = 0;
-        floatingName.style.opacity = 0;
+        floatingName.classList.remove('visible');
+        floatingName.classList.remove('moving');
+        
+        // Stop animation loop
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
       });
 
       card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        if (currentCard === card) {
+          // Set target position with spacing
+          const spacing = 20;
+          targetX = e.clientX + spacing;
+          targetY = e.clientY;
 
-        floatingName.style.left = `${rect.left + x}px`;
-        floatingName.style.top = `${rect.top + y}px`;
+          // Boundary checking
+          const tagRect = floatingName.getBoundingClientRect();
+          const maxX = window.innerWidth - tagRect.width - 10;
+          const maxY = window.innerHeight - tagRect.height - 10;
+
+          targetX = Math.min(targetX, maxX);
+          targetY = Math.min(Math.max(targetY, 10), maxY);
+
+          // Start animation if not already running
+          if (!animationId) {
+            animateNameTag();
+          }
+        }
       });
+    });
+
+    // Hide name tag when mouse leaves the window
+    document.addEventListener('mouseleave', () => {
+      floatingName.classList.remove('visible');
+      floatingName.classList.remove('moving');
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
     });
   </script>
 
