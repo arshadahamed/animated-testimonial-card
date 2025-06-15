@@ -7,19 +7,21 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f0f0;
+      font-family: Poppins, sans-serif;
+      background: White;
+      min-height: 100vh;
       padding: 40px;
       display: flex;
       flex-wrap: wrap;
       gap: 30px;
       justify-content: center;
+      align-items: flex-start;
     }
 
     .card {
       position: relative;
-      width: 270px;
-      height: 370px;
+      width: 350px;
+      height: 400px;
       background-color: #fdeee8;
       border-radius: 20px;
       overflow: hidden;
@@ -30,7 +32,8 @@
 
     .card:hover {
       transform: translateY(-12px);
-      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.3);
+      z-index: 100;
     }
 
     .thumbnail {
@@ -48,12 +51,13 @@
       display: block;
       top: 0;
       left: 0;
+      z-index: 1;
     }
 
     .thumbnail video {
       opacity: 0;
       transition: opacity 0.4s ease;
-      z-index: 1;
+      z-index: 2;
     }
 
     .card:hover video {
@@ -66,17 +70,15 @@
       left: 0;
       width: 100%;
       padding: 20px 15px;
-      background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
-      z-index: 2;
-      opacity: 0;
-      transform: translateY(30px);
+      z-index: 150;
+      opacity: 1;
+      transform: translateY(0);
       transition: all 0.4s ease;
       color: #fff;
     }
 
     .card:hover .overlay-details {
-      opacity: 1;
-      transform: translateY(0);
+      transform: translateY(-5px);
     }
 
     .overlay-details h3 {
@@ -86,8 +88,8 @@
     }
 
     .tags {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
     }
 
@@ -101,6 +103,7 @@
       color: #fff;
       border: 1px solid rgba(255, 255, 255, 0.3);
       box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+      text-align: center;
     }
 
     .name-tag {
@@ -130,7 +133,7 @@
       transition: none;
     }
 
-    /* Modal Styles */
+    /* Enhanced Modal Styles - New Grid Layout */
     .modal {
       display: none;
       position: fixed;
@@ -153,14 +156,169 @@
     .modal-content {
       background: white;
       border-radius: 20px;
-      padding: 30px;
-      max-width: 600px;
-      width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
+      padding: 0;
+      max-width: 1200px;
+      width: 95%;
+      max-height: 85vh;
+      overflow: hidden;
       position: relative;
       transform: scale(0.8);
       animation: modalAppear 0.3s ease forwards;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      grid-template-columns: 1fr;
+    }
+
+    /* First row - two columns */
+    .modal-main-content {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      min-height: 500px;
+    }
+
+    .modal-left {
+      position: relative;
+      background: #D4B5A0;
+      border-radius: 20px 0 0 0;
+      overflow: hidden;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+
+    .modal-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      cursor: pointer;
+    }
+
+    .video-controls {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .play-button:hover {
+      background: rgba(255, 255, 255, 1);
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .play-button.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-left: 25px solid #333;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      margin-left: 5px;
+    }
+
+    .pause-icon {
+      display: flex;
+      gap: 4px;
+    }
+
+    .pause-icon::before,
+    .pause-icon::after {
+      content: '';
+      width: 6px;
+      height: 30px;
+      background: #333;
+      border-radius: 2px;
+    }
+
+    .mute-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 0, 0, 0.6);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .mute-button:hover {
+      background: rgba(0, 0, 0, 0.8);
+      transform: scale(1.1);
+    }
+
+    .volume-icon {
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .video-overlay {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      background: rgba(46, 125, 50, 0.9);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 500;
+      max-width: 250px;
+    }
+
+    .modal-right {
+      padding: 40px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      position: relative;
+      background: white;
+      border-radius: 0 20px 0 0;
     }
 
     .close {
@@ -170,51 +328,147 @@
       font-size: 28px;
       font-weight: bold;
       cursor: pointer;
-      color: #aaa;
+      color: #999;
       transition: color 0.3s ease;
+      z-index: 10;
     }
 
     .close:hover {
-      color: #000;
-    }
-
-    .modal-video {
-      width: 100%;
-      border-radius: 15px;
-      margin-bottom: 20px;
+      color: #333;
     }
 
     .modal-profile {
-      text-align: center;
+      flex: 1;
     }
 
     .modal-profile h2 {
-      margin-bottom: 15px;
+      font-size: 32px;
+      font-weight: 600;
       color: #333;
-      font-size: 24px;
+      margin-bottom: 8px;
+      line-height: 1.2;
     }
 
-    .modal-tags {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .modal-tag {
-      padding: 8px 16px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border-radius: 25px;
-      font-size: 14px;
+    .modal-subtitle {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 30px;
       font-weight: 500;
     }
 
     .modal-description {
-      color: #666;
+      color: #555;
       line-height: 1.6;
       font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .modal-style-section h3 {
+      color: #333;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .modal-tags {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .modal-tag {
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .modal-tag:hover {
+      background: #e9ecef;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Second row - merged navigation */
+    .modal-navigation {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 50px;
+      background: white;
+      border-radius: 0 0 20px 20px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .nav-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border: none;
+      background: none;
+      color: #666;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .nav-button:hover {
+      color: #333;
+    }
+
+    .find-guide-btn {
+      background: #2d5a3d;
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .find-guide-btn:hover {
+      background: #1e3a2a;
+    }
+
+    .checkmark {
+      color: #4caf50;
+      font-weight: bold;
+    }
+
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card.loading .loading-spinner {
+      opacity: 1;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
     }
 
     @keyframes fadeIn {
@@ -233,18 +487,84 @@
       }
     }
 
+    /* Responsive design */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+        gap: 20px;
+      }
+      
+      .card {
+        width: 100%;
+        max-width: 300px;
+        height: 350px;
+      }
+      
+      .name-tag {
+        display: none;
+      }
 
+      .tags {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        max-width: 95%;
+        max-height: 90vh;
+        grid-template-rows: 1fr auto;
+      }
+
+      .modal-main-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        min-height: auto;
+      }
+
+      .modal-left {
+        min-height: 300px;
+        border-radius: 20px 20px 0 0;
+        padding: 0;
+      }
+
+      .modal-video {
+        border-radius: 0;
+      }
+
+      .modal-right {
+        padding: 30px 20px;
+        border-radius: 0;
+      }
+
+      .modal-profile h2 {
+        font-size: 24px;
+      }
+
+      .modal-navigation {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+      }
+
+      .nav-button {
+        margin: 0 !important;
+      }
+
+      .modal-tags {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- Cards -->
-  <div class="card" data-name="More About Andrew">
+  <div class="card" data-name="More About Andrew" data-description="Andrew has 7 years of planning and advising experience. He's deeply committed to helping people make more informed money decisions at every step of their financial journey. He previously worked at Merrill Lynch in wealth management. In his free time, Andrew's into exploring the local food scene, jamming to Taylor Swift in spin class, and reading while cozying up with his cats, Randy and Jim Bob." data-subtitle="CFP® Professional" data-tags="💬 Conversational,💼 Dedicated,🌈 Open-minded">
     <div class="thumbnail">
-      <img src="https://i.imgur.com/4Z4z9uL.jpg" alt="Andrew Rotz">
-      <video muted preload="auto">
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      <img src="https://cdn.prod.website-files.com/65b22d2d8aafb9c10048b930/67d8b625b6c27444ff25ef19_20250317_Frutiful_Guide_Headshot_Andrea.png" alt="Andrew Rotz">
+      <video muted preload="auto" loop>
+        <source src="https://d1pwidzl9kib4u.cloudfront.net/marketing/20240416/4x3_Low_Quality_No_Caption/20240316_Fruitful_Video_Guide_Andrea_4x3_LQ_NC.mp4">
       </video>
+      <div class="loading-spinner"></div>
     </div>
     <div class="overlay-details">
       <h3>Andrew Rotz</h3>
@@ -256,12 +576,13 @@
     </div>
   </div>
 
-  <div class="card" data-name="More About Alli">
+  <div class="card" data-name="More About Alli" data-description="Alli brings enthusiasm and thoughtful insights to every challenge, with a motivated spirit that inspires the team. She has extensive experience in financial planning and is passionate about helping clients achieve their goals through personalized strategies." data-subtitle="Financial Advisor" data-tags="🌟 Enthusiastic,🧠 Thoughtful,💪 Motivated">
     <div class="thumbnail">
-      <img src="https://i.imgur.com/jNNT4LE.jpg" alt="Alli Hershey">
-      <video muted preload="auto">
-        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+      <img src="https://cdn.prod.website-files.com/65b22d2d8aafb9c10048b930/67d87483f61390a6275de462_20250317_Frutiful_Guide_Headshot_Alli.png" alt="Alli Hershey">
+      <video muted preload="auto" loop>
+        <source src="https://d1pwidzl9kib4u.cloudfront.net/marketing/20240612/Alli+Hershey/Video/Low+Quality/20240612_Fruitful_Video_Guide_Bio_Alli_Hershey_16x9_LQ_LC.mp4" type="video/mp4">
       </video>
+      <div class="loading-spinner"></div>
     </div>
     <div class="overlay-details">
       <h3>Alli Hershey</h3>
@@ -273,12 +594,13 @@
     </div>
   </div>
 
-  <div class="card" data-name="More About Angela">
+  <div class="card" data-name="More About Angela" data-description="Angela combines focus and knowledge with insightful perspectives, making her an invaluable team member. She specializes in comprehensive financial planning and has a talent for breaking down complex concepts into actionable advice." data-subtitle="Senior Financial Planner" data-tags="🎯 Focused,📚 Knowledgeable,🌟 Insightful">
     <div class="thumbnail">
-      <img src="https://i.imgur.com/4zCTUXH.jpg" alt="Angela Moore">
-      <video muted preload="auto">
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      <img src="https://cdn.prod.website-files.com/65b22d2d8aafb9c10048b930/67d87f8ceb5d51b9abc55c8e_20250317_Frutiful_Guide_Headshot_Bri.png" alt="Angela Moore">
+      <video muted preload="auto" loop>
+        <source src="https://d1pwidzl9kib4u.cloudfront.net/marketing/20240416/4x3_Low_Quality_No_Caption/20240316_Fruitful_Video_Guide_Bri_4x3_LQ_NC.mp4">
       </video>
+      <div class="loading-spinner"></div>
     </div>
     <div class="overlay-details">
       <h3>Angela Moore</h3>
@@ -293,20 +615,84 @@
   <!-- Shared floating name tag -->
   <div class="name-tag" id="floatingName"></div>
 
+  <!-- Enhanced Modal with Grid Layout -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      
+      <!-- First Row: Two Columns -->
+      <div class="modal-main-content">
+        <div class="modal-left">
+          <video class="modal-video" controls muted>
+            <source src="" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="modal-right">
+          <div class="modal-profile">
+            <h2 id="modalName"></h2>
+            <p class="modal-subtitle" id="modalSubtitle"></p>
+            <p class="modal-description" id="modalDescription"></p>
+            
+            <div class="modal-style-section">
+              <h3 id="modalPersonName">'s style</h3>
+              <div class="modal-tags" id="modalTags"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Row: Full Width Navigation -->
+      <div class="modal-navigation">
+        <button class="nav-button prev" id="prevBtn">
+          <span>←</span>
+          <span id="prevName">Meet Angela</span>
+        </button>
+        
+        <button class="find-guide-btn">Find your Guide</button>
+        
+        <button class="nav-button next" id="nextBtn">
+          <span id="nextName">Meet Chris</span>
+          <span>→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const cards = document.querySelectorAll('.card');
     const floatingName = document.getElementById('floatingName');
+    const modal = document.getElementById('modal');
+    const modalName = document.getElementById('modalName');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalPersonName = document.getElementById('modalPersonName');
+    const modalTags = document.getElementById('modalTags');
+    const modalVideo = document.querySelector('.modal-video');
+    const closeBtn = document.querySelector('.close');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevName = document.getElementById('prevName');
+    const nextName = document.getElementById('nextName');
+
     let currentCard = null;
+    let currentCardIndex = 0;
     let targetX = 0;
     let targetY = 0;
     let currentX = 0;
     let currentY = 0;
     let animationId = null;
 
+    const cardData = [
+      { name: "Andrew Rotz", prev: "Angela", next: "Alli" },
+      { name: "Alli Hershey", prev: "Andrew", next: "Angela" },
+      { name: "Angela Moore", prev: "Alli", next: "Chris" }
+    ];
+
     // Smooth animation function
     function animateNameTag() {
       const lerp = (start, end, factor) => start + (end - start) * factor;
-      const smoothFactor = 0.1; // Lower = smoother but slower following
+      const smoothFactor = 0.15;
 
       currentX = lerp(currentX, targetX, smoothFactor);
       currentY = lerp(currentY, targetY, smoothFactor);
@@ -319,19 +705,68 @@
       }
     }
 
-    cards.forEach(card => {
+    function updateModalNavigation(index) {
+      const current = cardData[index];
+      if (current) {
+        prevName.textContent = `Meet ${current.prev}`;
+        nextName.textContent = `Meet ${current.next}`;
+      }
+    }
+
+    function openModal(cardElement, index) {
+      const name = cardElement.querySelector('h3').textContent;
+      const subtitle = cardElement.getAttribute('data-subtitle');
+      const description = cardElement.getAttribute('data-description');
+      const tags = cardElement.getAttribute('data-tags').split(',');
+      const video = cardElement.querySelector('video');
+
+      modalName.textContent = name;
+      modalSubtitle.textContent = subtitle;
+      modalDescription.textContent = description;
+      modalPersonName.textContent = name.split(' ')[0];
+
+      // Create modal tags in the same style as card overlay tags
+      modalTags.innerHTML = '';
+      tags.forEach(tag => {
+        const modalTag = document.createElement('div');
+        modalTag.className = 'modal-tag';
+        modalTag.textContent = tag.trim();
+        modalTags.appendChild(modalTag);
+      });
+
+      // Set video source
+      const videoSource = video.querySelector('source').src;
+      modalVideo.querySelector('source').src = videoSource;
+      modalVideo.load();
+
+      currentCardIndex = index;
+      updateModalNavigation(index);
+
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    cards.forEach((card, index) => {
       const video = card.querySelector('video');
       const name = card.getAttribute('data-name');
+
+      // Show loading spinner while video loads
+      video.addEventListener('loadstart', () => {
+        card.classList.add('loading');
+      });
+
+      video.addEventListener('canplay', () => {
+        card.classList.remove('loading');
+      });
 
       card.addEventListener('mouseenter', () => {
         currentCard = card;
         video.currentTime = 0;
-        video.play();
+        video.play().catch(e => console.log('Video play failed:', e));
         floatingName.innerText = name;
         floatingName.classList.add('visible');
         floatingName.classList.add('moving');
         
-        // Start animation loop
         if (animationId) cancelAnimationFrame(animationId);
         animateNameTag();
       });
@@ -343,7 +778,6 @@
         floatingName.classList.remove('visible');
         floatingName.classList.remove('moving');
         
-        // Stop animation loop
         if (animationId) {
           cancelAnimationFrame(animationId);
           animationId = null;
@@ -352,12 +786,10 @@
 
       card.addEventListener('mousemove', (e) => {
         if (currentCard === card) {
-          // Set target position with spacing
           const spacing = 20;
           targetX = e.clientX + spacing;
           targetY = e.clientY;
 
-          // Boundary checking
           const tagRect = floatingName.getBoundingClientRect();
           const maxX = window.innerWidth - tagRect.width - 10;
           const maxY = window.innerHeight - tagRect.height - 10;
@@ -365,12 +797,53 @@
           targetX = Math.min(targetX, maxX);
           targetY = Math.min(Math.max(targetY, 10), maxY);
 
-          // Start animation if not already running
           if (!animationId) {
             animateNameTag();
           }
         }
       });
+
+      // Click to open modal
+      card.addEventListener('click', () => {
+        openModal(card, index);
+      });
+    });
+
+    // Modal close functionality
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Navigation functionality
+    prevBtn.addEventListener('click', () => {
+      const prevIndex = currentCardIndex > 0 ? currentCardIndex - 1 : cards.length - 1;
+      openModal(cards[prevIndex], prevIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const nextIndex = currentCardIndex < cards.length - 1 ? currentCardIndex + 1 : 0;
+      openModal(cards[nextIndex], nextIndex);
+    });
+
+    function closeModal() {
+      modal.classList.remove('show');
+      document.body.style.overflow = 'auto';
+      modalVideo.pause();
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('show')) {
+        closeModal();
+      }
+      if (modal.classList.contains('show')) {
+        if (e.key === 'ArrowLeft') {
+          prevBtn.click();
+        } else if (e.key === 'ArrowRight') {
+          nextBtn.click();
+        }
+      }
     });
 
     // Hide name tag when mouse leaves the window

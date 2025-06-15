@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Testimonial Cards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    
+    .card-hover-transform {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    
+    .card-hover-transform:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+    }
+    
+    .video-fade {
+      transition: opacity 0.4s ease;
+    }
+    
+    .card:hover .video-fade {
+      opacity: 1 !important;
+    }
+    
+    .overlay-slide {
+      transition: all 0.4s ease;
+    }
+    
+    .card:hover .overlay-slide {
+      transform: translateY(-5px);
+    }
+    
+    .name-tag-smooth {
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      will-change: transform;
+    }
+    
+    .name-tag-smooth.visible {
+      opacity: 1 !important;
+      transform: translate(0, -50%) scale(1) !important;
+    }
+    
+    .name-tag-smooth.moving {
+      transition: none;
+    }
+    
+    .modal-backdrop {
+      backdrop-filter: blur(5px);
+    }
+    
+    .modal-appear {
+      animation: modalAppear 0.3s ease forwards;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .loading-spin {
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    .play-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .play-hover:hover {
+      background: rgba(255, 255, 255, 1) !important;
+      transform: translate(-50%, -50%) scale(1.1) !important;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+    .modal-tag-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .modal-tag-hover:hover {
+      background: #e5e7eb !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes modalAppear {
+      from { 
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to { 
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+    .play-triangle {
+      width: 0;
+      height: 0;
+      border-left: 25px solid #333;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      margin-left: 5px;
+    }
+    
+    .pause-bars {
+      display: flex;
+      gap: 4px;
+    }
+    
+    .pause-bars::before,
+    .pause-bars::after {
+      content: '';
+      width: 6px;
+      height: 30px;
+      background: #333;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-10 flex flex-wrap gap-8 justify-center items-start bg-white">
+
+  <!-- Cards -->
+  <div class="card relative w-[350px] h-[400px] bg-[#fdeee8] rounded-3xl overflow-hidden shadow-lg card-hover-transform cursor-pointer" data-name="More About Andrew" data-description="Andrew has 7 years of planning and advising experience. He's deeply committed to helping people make more informed money decisions at every step of their financial journey. He previously worked at Merrill Lynch in wealth management. In his free time, Andrew's into exploring the local food scene, jamming to Taylor Swift in spin class, and reading while cozying up with his cats, Randy and Jim Bob." data-subtitle="CFP® Professional" data-tags="💬 Conversational,💼 Dedicated,🌈 Open-minded">
+    <div class="w-full h-full relative">
+      <img src="https://cdn.prod.website-files.com/65b22d2d8aafb9c10048b930/67d8b625b6c27444ff25ef19_20250317_Frutiful_Guide_Headshot_Andrea.png" alt="Andrew Rotz" class="absolute w-full h-full object-cover block top-0 left-0 z-10">
+      <video muted preload="auto" loop class="absolute w-full h-full object-cover block top-0 left-0 z-20 opacity-0 video-fade">
+        <source src="https://d1pwidzl9kib4u.cloudfront.net/marketing/20240416/4x3_Low_Quality_No_Caption/20240316_Fruitful_Video_Guide_Andrea_4x3_LQ_NC.mp4">
+      </video>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 border-[3px] border-white/30 rounded-full border-t-white loading-spin z-30 opacity-0 transition-opacity duration-300"></div>
+    </div>
+    <div class="absolute bottom-0 left-0 w-full p-5 z-[150] opacity-100 translate-y-0 overlay-slide text-white">
+      <h3 class="mb-3 text-lg font-bold">Andrew Rotz</h3>
+      <div class="grid grid-cols-2 gap-2">
+        <div class="px-3 py-1.5 rounded-full backdrop-blur-md bg-white/25 text-xs font-medium text-white border border-white/30 shadow-md text-center">💬 Conversational</div>
+        <div class="px-3 py-1.5 rounded-full backdrop-blur-md bg-white/25 text-xs font-medium text-white border border-white/30 shadow-md text-center">💼 Dedicated</div>
+        <div class="px-3 py-1.5 rounded-full backdrop-blur-md bg-white/25 text-xs font-medium text-white border border-white/30 shadow-md text-center">🌈 Open-minded</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card relative w-[350px] h-[400px] bg-[#fdeee8] rounded-3xl overflow-hidden shadow-lg card-hover-transform cursor-pointer" data-name="More About Alli" data-description="Alli brings enthusiasm and thoughtful insights to every challenge, with a motivated spirit that inspires the team. She has extensive experience in financial planning and is passionate about helping clients achieve their goals through personalized strategies." data-subtitle="Financial Advisor" data-tags="🌟 Enthusiastic,🧠 Thoughtful,💪 Motivated">
+    <div class="w-full h-full relative">
+      <img src="https://cdn.prod.website-files.com/65b22d2d8aafb9c10048b930/67d87483f61390a6275de462_20250317_Frutiful_Guide_Headshot_Alli.png" alt="Alli Hershey" class="absolute w-full h-full object-cover block top-0 left-0 z-10">
+      <video muted preload="auto" loop class="absolute w-full h-full object-cover block top-0 left-0 z-20 opacity-0 video-fade">
+        <source src="https://d1pwidzl9kib4u.cloudfront.net/marketing/20240612/Alli+Hershey/Video/Low+Quality/20240612_Fruitful_Video_Guide_Bio_Alli_Hershey_16x9_LQ_LC.mp4" type="video/mp4">
+      </video>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 border-[3px] border-white/30 rounded-full border-t-white loading-spin z-30 opacity-0 transition-opacity duration-300"></div>
+    </div>
+    <div class="absolute bottom-0 left-0 w-full p-5 z-[150] opacity-100 translate-y-0 overlay-slide text-white">
+      <h3 class="mb-3 text-lg font-bold">Alli Hershey</h3>
+      <div class="grid grid-cols-2 gap-2">
+        <div class="px-3 py-1.5 rounded-full backdrop-blur-md bg-white/25 text-xs font-medium text-white border border-white/30 shadow-md text-center">🌟 Enthusiastic</div>
+        <div class="px-3 py-1.5 rounded-full backdrop-blur-md bg-white/25 text-xs font-medium text-white border border-white/30 shadow-md text-center">🧠 Thoughtful</div>
+        <div class="px-3 py-1.5 rounded-full backdrop-blur-md bg-white/25 text-xs font-medium text-white border border-white/30 shadow-md text-center">💪 Motivated</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card relative w-[350px] h-[400px] bg-[#fdeee8] rounded-3xl overflow-hidden shadow-lg card-hover-transform cursor-pointer" data-name="More About Angela" data-description="Angela combines focus and knowledge with insightful perspectives, making her an invaluable team member. She specializes in comprehensive financial planning and has a talent for breaking down complex concepts into actionable advice." data-subtitle="Senior Financial Planner" data-tags="🎯 Focused,📚 Knowledgeable,🌟 Insightful">
+    <div class="w-full h-full relative">
+      <img src="https://cdn.prod.website-files.com/65b22d2d8aafb9c10048b930/67d87f8ceb5d51b9abc55c8e_20250317_Frutiful_Guide_Headshot_Bri.png" alt="Angela Moore" class="absolute w-full h-full object-cover block top-0 left-0 z-10">
+      <video muted preload="auto" loop class="absolute w-full h-full object-cover block top-0 left-0 z-20 opacity-0 video-fade">
+        <source src="https://d1pwidzl9kib4u.cloudfront.net/marketing/20240416/4x3_Low_Quality_No_Caption/20240316_Fruitful_Video_Guide_Bri_4x3_LQ_NC.mp4">
+      </video>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 border-[3px] border-white/30 rounded-full border-t-white loading-spin z-30 opacity-0 transition-opacity duration-300"></div>
+    </div>
+    <div class="absolute bottom-0 left-0 w-full p-5 z-[150] opacity-100 translate-y-0 overlay-slide text-white">
+      <h3 class="mb-3 text-lg font-bold">Angela Moore</h3>
+      <div class="grid grid-cols-2 gap-2">
+        <div class="px-3 py-1.5 rounded-full backdrop-blur-md bg-white/25 text-xs font-medium text-white border border-white/30 shadow-md text-center">🎯 Focused</div>
+        <div class="px-3 py-1.5 rounded-full backdrop-blur-md bg-white/25 text-xs font-medium text-white border border-white/30 shadow-md text-center">📚 Knowledgeable</div>
+        <div class="px-3 py-1.5 rounded-full backdrop-blur-md bg-white/25 text-xs font-medium text-white border border-white/30 shadow-md text-center">🌟 Insightful</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared floating name tag -->
+  <div id="floatingName" class="fixed bg-white text-black px-4 py-2 rounded-full shadow-xl font-bold pointer-events-none opacity-0 z-[1000] text-sm -translate-y-1/2 scale-75 whitespace-nowrap name-tag-smooth"></div>
+
+  <!-- Enhanced Modal with Grid Layout -->
+  <div id="modal" class="hidden fixed z-[2000] left-0 top-0 w-full h-full bg-black/80 modal-backdrop">
+    <div class="flex justify-center items-center h-full fade-in">
+      <div class="bg-white rounded-3xl p-0 max-w-6xl w-[95%] max-h-[85vh] overflow-hidden relative scale-75 opacity-0 modal-appear grid grid-rows-[1fr_auto]">
+        <span class="absolute right-5 top-5 text-3xl font-bold cursor-pointer text-gray-400 hover:text-gray-700 transition-colors z-10">&times;</span>
+        
+        <!-- First Row: Two Columns -->
+        <div class="grid lg:grid-cols-[1.2fr_1fr] grid-cols-1 grid-rows-[auto_1fr] lg:grid-rows-none min-h-[500px] lg:min-h-auto">
+          <div class="relative bg-[#D4B5A0] lg:rounded-tl-3xl rounded-t-3xl lg:rounded-tr-none overflow-hidden p-0 flex items-center justify-center lg:min-h-auto min-h-[300px]">
+            <div class="relative w-full h-full flex items-center justify-center bg-black">
+              <video class="modal-video w-full h-full object-cover cursor-pointer" controls muted>
+                <source src="" type="video/mp4">
+              </video>
+            </div>
+          </div>
+
+          <div class="p-10 lg:p-12 flex flex-col justify-start relative bg-white lg:rounded-tr-3xl">
+            <div class="flex-1">
+              <h2 id="modalName" class="text-3xl lg:text-4xl font-semibold text-gray-800 mb-2 leading-tight"></h2>
+              <p id="modalSubtitle" class="text-gray-600 text-base mb-8 font-medium"></p>
+              <p id="modalDescription" class="text-gray-700 leading-relaxed text-base mb-8"></p>
+              
+              <div class="modal-style-section">
+                <h3 id="modalPersonName" class="text-gray-800 text-lg font-semibold mb-4">'s style</h3>
+                <div id="modalTags" class="grid lg:grid-cols-2 grid-cols-1 gap-3 mb-8"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Second Row: Full Width Navigation -->
+        <div class="flex lg:flex-row flex-col justify-between items-center px-12 py-8 bg-white rounded-b-3xl border-t border-gray-100 lg:gap-0 gap-4">
+          <button class="nav-button flex items-center gap-2 px-6 py-3 border-none bg-none text-gray-600 text-base font-medium cursor-pointer hover:text-gray-800 transition-colors" id="prevBtn">
+            <span>←</span>
+            <span id="prevName">Meet Angela</span>
+          </button>
+          
+          <button class="find-guide-btn bg-[#2d5a3d] text-white border-none px-8 py-3.5 rounded-full text-base font-semibold cursor-pointer hover:bg-[#1e3a2a] transition-colors">Find your Guide</button>
+          
+          <button class="nav-button flex items-center gap-2 px-6 py-3 border-none bg-none text-gray-600 text-base font-medium cursor-pointer hover:text-gray-800 transition-colors" id="nextBtn">
+            <span id="nextName">Meet Chris</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll('.card');
+    const floatingName = document.getElementById('floatingName');
+    const modal = document.getElementById('modal');
+    const modalName = document.getElementById('modalName');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalPersonName = document.getElementById('modalPersonName');
+    const modalTags = document.getElementById('modalTags');
+    const modalVideo = document.querySelector('.modal-video');
+    const closeBtn = document.querySelector('.close');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevName = document.getElementById('prevName');
+    const nextName = document.getElementById('nextName');
+
+    let currentCard = null;
+    let currentCardIndex = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let animationId = null;
+
+    const cardData = [
+      { name: "Andrew Rotz", prev: "Angela", next: "Alli" },
+      { name: "Alli Hershey", prev: "Andrew", next: "Angela" },
+      { name: "Angela Moore", prev: "Alli", next: "Chris" }
+    ];
+
+    // Smooth animation function
+    function animateNameTag() {
+      const lerp = (start, end, factor) => start + (end - start) * factor;
+      const smoothFactor = 0.15;
+
+      currentX = lerp(currentX, targetX, smoothFactor);
+      currentY = lerp(currentY, targetY, smoothFactor);
+
+      floatingName.style.left = `${currentX}px`;
+      floatingName.style.top = `${currentY}px`;
+
+      if (Math.abs(targetX - currentX) > 0.5 || Math.abs(targetY - currentY) > 0.5) {
+        animationId = requestAnimationFrame(animateNameTag);
+      }
+    }
+
+    function updateModalNavigation(index) {
+      const current = cardData[index];
+      if (current) {
+        prevName.textContent = `Meet ${current.prev}`;
+        nextName.textContent = `Meet ${current.next}`;
+      }
+    }
+
+    function openModal(cardElement, index) {
+      const name = cardElement.querySelector('h3').textContent;
+      const subtitle = cardElement.getAttribute('data-subtitle');
+      const description = cardElement.getAttribute('data-description');
+      const tags = cardElement.getAttribute('data-tags').split(',');
+      const video = cardElement.querySelector('video');
+
+      modalName.textContent = name;
+      modalSubtitle.textContent = subtitle;
+      modalDescription.textContent = description;
+      modalPersonName.textContent = name.split(' ')[0];
+
+      // Create modal tags
+      modalTags.innerHTML = '';
+      tags.forEach(tag => {
+        const modalTag = document.createElement('div');
+        modalTag.className = 'px-4 py-2 rounded-3xl bg-gray-50 border border-gray-200 text-sm font-medium text-gray-800 text-center modal-tag-hover';
+        modalTag.textContent = tag.trim();
+        modalTags.appendChild(modalTag);
+      });
+
+      // Set video source
+      const videoSource = video.querySelector('source').src;
+      modalVideo.querySelector('source').src = videoSource;
+      modalVideo.load();
+
+      currentCardIndex = index;
+      updateModalNavigation(index);
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    cards.forEach((card, index) => {
+      const video = card.querySelector('video');
+      const loadingSpinner = card.querySelector('.loading-spin');
+      const name = card.getAttribute('data-name');
+
+      // Show loading spinner while video loads
+      video.addEventListener('loadstart', () => {
+        loadingSpinner.style.opacity = '1';
+      });
+
+      video.addEventListener('canplay', () => {
+        loadingSpinner.style.opacity = '0';
+      });
+
+      card.addEventListener('mouseenter', () => {
+        currentCard = card;
+        video.currentTime = 0;
+        video.play().catch(e => console.log('Video play failed:', e));
+        floatingName.innerText = name;
+        floatingName.classList.add('visible');
+        floatingName.classList.add('moving');
+        
+        if (animationId) cancelAnimationFrame(animationId);
+        animateNameTag();
+      });
+
+      card.addEventListener('mouseleave', () => {
+        currentCard = null;
+        video.pause();
+        video.currentTime = 0;
+        floatingName.classList.remove('visible');
+        floatingName.classList.remove('moving');
+        
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+      });
+
+      card.addEventListener('mousemove', (e) => {
+        if (currentCard === card) {
+          const spacing = 20;
+          targetX = e.clientX + spacing;
+          targetY = e.clientY;
+
+          const tagRect = floatingName.getBoundingClientRect();
+          const maxX = window.innerWidth - tagRect.width - 10;
+          const maxY = window.innerHeight - tagRect.height - 10;
+
+          targetX = Math.min(targetX, maxX);
+          targetY = Math.min(Math.max(targetY, 10), maxY);
+
+          if (!animationId) {
+            animateNameTag();
+          }
+        }
+      });
+
+      // Click to open modal
+      card.addEventListener('click', () => {
+        openModal(card, index);
+      });
+    });
+
+    // Modal close functionality
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Navigation functionality
+    prevBtn.addEventListener('click', () => {
+      const prevIndex = currentCardIndex > 0 ? currentCardIndex - 1 : cards.length - 1;
+      openModal(cards[prevIndex], prevIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const nextIndex = currentCardIndex < cards.length - 1 ? currentCardIndex + 1 : 0;
+      openModal(cards[nextIndex], nextIndex);
+    });
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = 'auto';
+      modalVideo.pause();
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+      if (!modal.classList.contains('hidden')) {
+        if (e.key === 'ArrowLeft') {
+          prevBtn.click();
+        } else if (e.key === 'ArrowRight') {
+          nextBtn.click();
+        }
+      }
+    });
+
+    // Hide name tag when mouse leaves the window
+    document.addEventListener('mouseleave', () => {
+      floatingName.classList.remove('visible');
+      floatingName.classList.remove('moving');
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    });
+
+    // Handle responsive behavior
+    function handleResize() {
+      if (window.innerWidth <= 768) {
+        floatingName.style.display = 'none';
+      } else {
+        floatingName.style.display = 'block';
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial call
+  </script>
+
+</body>
+</html>
