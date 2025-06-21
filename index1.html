@@ -270,11 +270,31 @@
       { name: "Alli Hershey", prev: "Andrew", next: "Angela" },
       { name: "Angela Moore", prev: "Alli", next: "Andrew" }
     ];
-
     const personalData = [
-      { name: "Andrew Rotz", img: "https://cdn.prod.website-files.com/65b22d2d8aafb9c10048b930/67d87f8ceb5d51b9abc55c8e_20250317_Frutiful_Guide_Headshot_Bri.png", video:"https://d1pwidzl9kib4u.cloudfront.net/marketing/20240612/Alli+Hershey/Video/Low+Quality/20240612_Fruitful_Video_Guide_Bio_Alli_Hershey_16x9_LQ_LC.mp4", tags:["💬 Conversational","💼 Dedicated","🌈 Open-minded"] },
-      { name: "Alli Hershey", img: "", video:"", tags:["🌟 Enthusiastic","🧠 Thoughtful","💪 Motivated"] },
-      { name: "Angela Moore", img: "", video:"", tags:["🎯 Focused","📚 Knowledgeable","🌟 Insightful"] }
+      {
+        name: "Andrew Rotz",
+        img: "https://cdn.prod.website-files.com/65b22d2d8aafb9c10048b930/67d87f8ceb5d51b9abc55c8e_20250317_Frutiful_Guide_Headshot_Bri.png",
+        video: "https://d1pwidzl9kib4u.cloudfront.net/marketing/20240612/Alli+Hershey/Video/Low+Quality/20240612_Fruitful_Video_Guide_Bio_Alli_Hershey_16x9_LQ_LC.mp4",
+        tags: ["💬 Conversational", "💼 Dedicated", "🌈 Open-minded"],
+        subtitle: "Expert in Sustainable Tourism",
+        description: "Andrew is a seasoned guide specializing in sustainable travel and eco-friendly adventures. With over a decade of experience, he brings passion and deep knowledge to every tour."
+      },
+      {
+        name: "Alli Hershey",
+        img: "https://cdn.prod.website-files.com/65b22d2d8aafb9c10048b930/67d87483f61390a6275de462_20250317_Frutiful_Guide_Headshot_Alli.png",
+        video: "https://d1pwidzl9kib4u.cloudfront.net/marketing/20240612/Alli+Hershey/Video/Low+Quality/20240612_Fruitful_Video_Guide_Bio_Alli_Hershey_16x9_LQ_LC.mp4",
+        tags: ["🌟 Enthusiastic", "🧠 Thoughtful", "💪 Motivated"],
+        subtitle: "Cultural Heritage Specialist",
+        description: "Alli brings vibrant energy and a thoughtful approach to cultural tours, ensuring visitors experience authentic local heritage while respecting traditions."
+      },
+      {
+        name: "Angela Moore",
+        img: "https://cdn.prod.website-files.com/65b22d2d8aafb9c10048b930/67d87f8ceb5d51b9abc55c8e_20250317_Frutiful_Guide_Headshot_Bri.png",
+        video: "https://d1pwidzl9kib4u.cloudfront.net/marketing/20240612/Alli+Hershey/Video/Low+Quality/20240612_Fruitful_Video_Guide_Bio_Alli_Hershey_16x9_LQ_LC.mp4",
+        tags: ["🎯 Focused", "📚 Knowledgeable", "🌟 Insightful"],
+        subtitle: "Adventure Travel Coordinator",
+        description: "Angela coordinates exhilarating adventure trips tailored to thrill-seekers. Her deep knowledge of the terrain ensures safety and excitement."
+      }
     ];
 
     // Smooth animation function
@@ -458,6 +478,32 @@
 
     window.addEventListener('resize', handleResize);
     handleResize(); // Initial call
+
+    const container = document.getElementById('cards-container');
+
+    for (let person of personalData) {
+      const tagHTML = person.tags.map(tag =>
+        `<div class="px-3 py-1.5 rounded-full backdrop-blur-md bg-white/25 text-xs font-medium text-white border border-white/30 shadow-md text-center">${tag}</div>`
+      ).join('');
+
+      container.innerHTML += `
+          <div class="card relative w-[350px] h-[400px] bg-[#fdeee8] rounded-3xl overflow-hidden shadow-lg card-hover-transform cursor-pointer">
+            <div class="w-full h-full relative">
+              <img src="${person.img}" alt="${person.name}" class="absolute w-full h-full object-cover block top-0 left-0 z-10">
+              <video muted preload="auto" loop class="absolute w-full h-full object-cover block top-0 left-0 z-20 opacity-0 video-fade">
+                <source src="${person.video}" type="video/mp4">
+              </video>
+              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 border-[3px] border-white/30 rounded-full border-t-white loading-spin z-30 opacity-0 transition-opacity duration-300"></div>
+            </div>
+            <div class="absolute bottom-0 left-0 w-full p-5 z-[150] opacity-100 translate-y-0 overlay-slide text-white">
+              <h3 class="mb-3 text-lg font-bold">${person.name}</h3>
+              <div class="grid grid-cols-2 gap-2">
+                ${tagHTML}
+              </div>
+            </div>
+          </div>
+        `;
+      }
   </script>
 
 </body>

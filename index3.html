@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatiQ Header</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .carousel-container {
+            background: linear-gradient(135deg, #f5e6d3 0%, #e8d5c4 100%);
+        }
+    </style>
+</head>
+<body class="bg-[#0f172a] text-white font-sans">
+
+    <!-- Navbar -->
+    <header class="flex justify-between items-center px-6 py-4">
+        <div class="text-white font-bold text-xl">Stati<span class="text-red-500">Q</span>.</div>
+        <nav class="hidden md:flex gap-6 text-sm">
+            <a href="#" class="hover:text-gray-300">Services</a>
+            <a href="#" class="hover:text-gray-300">Features</a>
+            <a href="#" class="hover:text-gray-300">Projects</a>
+            <a href="#" class="hover:text-gray-300">Pricing</a>
+            <a href="#" class="hover:text-gray-300">Reviews</a>
+            <a href="#" class="bg-white text-black px-4 py-1.5 rounded-full text-sm hover:bg-gray-100">Book a call</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="text-center px-6 py-24 md:py-32">
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-white">
+            About the
+            <span class="inline-flex items-center mx-2 relative">
+                <!-- Image 1 -->
+                <span class="relative inline-block w-[50px] h-[50px] md:w-[70px] md:h-[70px] translate-y-1 rounded-xl overflow-hidden z-20 border-4 border-white rotate-[8deg] -skew-y-2">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&facepad=3&w=500&h=500&q=80" alt="Person 1" class="object-cover w-full h-full" />
+                </span>
+                <!-- Image 2 -->
+                <span class="relative -ml-4 inline-block w-[50px] h-[50px] md:w-[70px] md:h-[70px] translate-y-1 rounded-xl overflow-hidden z-10 border-4 border-white -rotate-[8deg] skew-y-2">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=facearea&facepad=3&w=500&h=500&q=80" alt="Person 2" class="object-cover w-full h-full" />
+                </span>
+                &nbsp;people
+            </span><br />
+            behind <span class="text-white">Statiq</span>
+        </h1>
+    </section>
+
+    <!-- Enhanced Carousel Section -->
+    <div class="py-16 px-4">
+        <div class="carousel-container rounded-3xl p-8 max-w-4xl mx-auto shadow-xl">
+            <div class="relative flex items-center">
+                <!-- Left Arrow -->
+                <button id="prevBtn" class="absolute left-0 z-10 bg-white rounded-full w-12 h-12 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110">
+                    <i class="fas fa-chevron-left text-gray-600"></i>
+                </button>
+
+                <!-- Cards Container -->
+                <div class="flex-1 overflow-hidden mx-16">
+                    <div id="cardsContainer" class="flex transition-transform duration-500 ease-in-out gap-6">
+                        <!-- Card 1 - Pink -->
+                        <div class="min-w-72 bg-pink-400 rounded-3xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                            <div class="bg-white rounded-full w-24 h-24 mx-auto mb-4 overflow-hidden shadow-md">
+                                <div class="w-full h-full bg-gradient-to-br from-red-400 to-pink-500 flex items-center justify-center">
+                                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                                        <div class="w-12 h-12 bg-red-500 rounded-full relative">
+                                            <div class="absolute top-1 left-1 w-2 h-2 bg-green-400 rounded-full"></div>
+                                            <div class="absolute top-2 right-1 w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                            <div class="absolute bottom-1 left-2 w-1 h-1 bg-orange-400 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-lg font-bold text-center mb-2">Berries Salad</h3>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-2xl font-bold">$5.00</span>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-300 text-sm"></i>
+                                    <span class="ml-1 text-sm">4.5</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-white text-pink-400 py-2 px-4 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+                                Order Now
+                            </button>
+                        </div>
+
+                        <!-- Card 2 - Orange -->
+                        <div class="min-w-72 bg-orange-400 rounded-3xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                            <div class="bg-white rounded-full w-24 h-24 mx-auto mb-4 overflow-hidden shadow-md">
+                                <div class="w-full h-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+                                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                                        <div class="w-12 h-12 bg-orange-500 rounded-full relative">
+                                            <div class="absolute top-1 left-1 w-2 h-2 bg-red-500 rounded-full"></div>
+                                            <div class="absolute top-2 right-1 w-1 h-1 bg-yellow-500 rounded-full"></div>
+                                            <div class="absolute bottom-1 left-3 w-1 h-1 bg-green-500 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-lg font-bold text-center mb-2">Healthy Salad</h3>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-2xl font-bold">$3.00</span>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-300 text-sm"></i>
+                                    <span class="ml-1 text-sm">4.2</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-white text-orange-400 py-2 px-4 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+                                Order Now
+                            </button>
+                        </div>
+
+                        <!-- Card 3 - Green -->
+                        <div class="min-w-72 bg-green-400 rounded-3xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                            <div class="bg-white rounded-full w-24 h-24 mx-auto mb-4 overflow-hidden shadow-md">
+                                <div class="w-full h-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
+                                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                                        <div class="w-12 h-12 bg-green-500 rounded-full relative">
+                                            <div class="absolute top-1 left-1 w-2 h-2 bg-red-400 rounded-full"></div>
+                                            <div class="absolute top-2 right-1 w-1 h-1 bg-orange-400 rounded-full"></div>
+                                            <div class="absolute bottom-1 left-2 w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-lg font-bold text-center mb-2">Berries Salad</h3>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-2xl font-bold">$4.00</span>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-300 text-sm"></i>
+                                    <span class="ml-1 text-sm">4.6</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-white text-green-400 py-2 px-4 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+                                Order Now
+                            </button>
+                        </div>
+
+                        <!-- Card 4 - Blue -->
+                        <div class="min-w-72 bg-blue-500 rounded-3xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                            <div class="bg-white rounded-full w-24 h-24 mx-auto mb-4 overflow-hidden shadow-md">
+                                <div class="w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                                        <div class="w-12 h-12 bg-blue-500 rounded-full relative">
+                                            <div class="absolute top-1 left-1 w-2 h-2 bg-purple-400 rounded-full"></div>
+                                            <div class="absolute top-2 right-1 w-1 h-1 bg-red-400 rounded-full"></div>
+                                            <div class="absolute bottom-1 left-3 w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-lg font-bold text-center mb-2">Healthy Salad</h3>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-2xl font-bold">$5.00</span>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-300 text-sm"></i>
+                                    <span class="ml-1 text-sm">4.8</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-white text-blue-500 py-2 px-4 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+                                Order Now
+                            </button>
+                        </div>
+
+                        <!-- Card 5 - Purple -->
+                        <div class="min-w-72 bg-purple-500 rounded-3xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                            <div class="bg-white rounded-full w-24 h-24 mx-auto mb-4 overflow-hidden shadow-md">
+                                <div class="w-full h-full bg-gradient-to-br from-purple-400 to-indigo-500 flex items-center justify-center">
+                                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                                        <div class="w-12 h-12 bg-purple-500 rounded-full relative">
+                                            <div class="absolute top-1 left-1 w-2 h-2 bg-pink-400 rounded-full"></div>
+                                            <div class="absolute top-2 right-1 w-1 h-1 bg-blue-400 rounded-full"></div>
+                                            <div class="absolute bottom-1 left-2 w-1 h-1 bg-green-400 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-lg font-bold text-center mb-2">Mixed Salad</h3>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-2xl font-bold">$6.00</span>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-300 text-sm"></i>
+                                    <span class="ml-1 text-sm">4.7</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-white text-purple-500 py-2 px-4 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+                                Order Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Arrow -->
+                <button id="nextBtn" class="absolute right-0 z-10 bg-white rounded-full w-12 h-12 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110">
+                    <i class="fas fa-chevron-right text-gray-600"></i>
+                </button>
+            </div>
+
+            <!-- Pagination Dots -->
+            <div class="flex justify-center mt-8 space-x-2">
+                <div class="pagination-dot w-3 h-3 bg-white rounded-full cursor-pointer transition-all duration-300 opacity-50"></div>
+                <div class="pagination-dot w-3 h-3 bg-white rounded-full cursor-pointer transition-all duration-300 opacity-100"></div>
+                <div class="pagination-dot w-3 h-3 bg-white rounded-full cursor-pointer transition-all duration-300 opacity-50"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let currentIndex = 0;
+        const cardWidth = 312; // 288px card + 24px gap
+        const cardsContainer = document.getElementById('cardsContainer');
+        const totalCards = document.querySelectorAll('#cardsContainer > div').length;
+        const visibleCards = 3;
+        const maxIndex = totalCards - visibleCards;
+        const dots = document.querySelectorAll('.pagination-dot');
+
+        function updateCarousel() {
+            const translateX = -currentIndex * cardWidth;
+            cardsContainer.style.transform = `translateX(${translateX}px)`;
+            
+            // Update pagination dots
+            dots.forEach((dot, index) => {
+                if (index === Math.floor(currentIndex / visibleCards)) {
+                    dot.style.opacity = '1';
+                } else {
+                    dot.style.opacity = '0.5';
+                }
+            });
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        // Pagination dot clicks
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index * visibleCards;
+                if (currentIndex > maxIndex) currentIndex = maxIndex;
+                updateCarousel();
+            });
+        });
+
+        // Auto-scroll (optional)
+        setInterval(() => {
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateCarousel();
+        }, 5000);
+    </script>
+</body>
+</html>
